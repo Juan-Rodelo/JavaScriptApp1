@@ -8,7 +8,12 @@ let pokemonRepository = (function(){
     {name:'Sandshrew', height:0.6, types:'ground'}
   ];
 function add(pokemon){
+  if (typeof(pokemon)=== 'object'){
   pokemonList.push(pokemon);
+}
+else {
+  document.write('not and object');
+}
 }
 function getAll(){
   return pokemonList;
@@ -19,13 +24,16 @@ return {
   };
 })();
 
-//To pass a new poki a need to make it into an object to push it into the array
+// To pass a new poki I need to make it into an object to push it into the array
 let Pidgey = {
   name:'Pidgey',
   height:0.3 ,
   types: 'Flying'
 };
 
+let Venusaur = 'Venusaur';
+
+pokemonRepository.add(Venusaur);
 pokemonRepository.add(Pidgey);
 pokemonRepository.getAll().forEach(function(poki) {
   document.write('<h3>' + ' ' + poki.name + ' ' + poki.height + ' ' + poki.types + '</h3>');
