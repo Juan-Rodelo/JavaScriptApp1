@@ -27,7 +27,9 @@ function addListItem(poki){
   button.classList.add("button-class") //adds the css "button-class" to the button var we just made
   listPokemon.appendChild(button); //We put the element we just made into the <li> "listPokemon"
   pList.appendChild(listPokemon); // We put the Li into the class ".pokemon-list of the parent <ul>"
-  button.addEventListener("click", showDetails(poki));
+  button.addEventListener("click", function (){
+    showDetails(poki);
+  })
 }
 
 function showDetails(poki){
