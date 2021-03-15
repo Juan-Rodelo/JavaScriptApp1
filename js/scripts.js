@@ -11,35 +11,46 @@ let pokemonRepository = (function(){
   //select modal div with css clase to display none
   let modalContainer = document.querySelector('#modal-container');
   //create a function to display the modalContainer
-  function showModal (name,height){
-    //we erase any possible html (??don't understant why this is needed)
-    modalContainer.innerHTML = '';
+  function showModal (pokemon){
     //we create a div to add our css class modal that difines the div
     let modal = createElement("div");
     modal.classList.add("modal");
+    //Add the visible css display
+    modalContainer.classList.add("is-visible");
+    //we erase any possible html (??don't understant why this is needed)
+    modalContainer.innerHTML = '';
+
 
     //Create a close botton that we will add later to our modal div
     let closeBottonElement = document.createElement("button");
-    closeBottonElement.classList.add("modal-close");
-    closeBottonElement.classList.innerText = "Close";
-    closeButtonElement.addEventListener('click', hideModal);
+        closeBottonElement.classList.add("modal-close");
+        closeBottonElement.classList.innerText = "Close";
+        closeButtonElement.addEventListener('click', hideModal);
 
-    let pokemonName = (function(){
-      document.createElement('h1');
-      pokemonName.innerText = name;
-    })
+    let createname = document.createElement('h1');
+        createname.classList.add('h1');
+        createname.innerHTML = cap(pokemon.name);
 
-    let poekemonHeight = document.createElement('p1');
-    pokemonHeight.innerText = height;
-    // let pokemonImage = //put imageUrl
+    let createheight = document.createElement('h2');
+        createheight.classList.add('h2');
+        createheight.innerHTML = "Height: " + pokemon.height*10 + "cm";
+
+    let createweight = document.createElement('h2');
+        createweight.classList.add('h2');
+        createweight.innerHTML = "Weight: " + pokemon.weight + "lbs";
+
+    let createtype = document.createElement('h2');
+        createtype.classList.add('h2');
+        createtype.innerHTML = "Type: " + pokemon.types;
 
     modal.appendChild(closeBottonElement);
-    modal.appendChild(pokemonName);
-    // modal.appendChild(pokemonImage);
+    modal.appendChild(createname);
+    modal.appendChild(createheight);
+    modal.appendChild(createweight);
+    modal.appendChild(createtype);
     modalContainer.appendChild(modal);
 
-    //Add the visible css display
-    modalContainer.classList.add("is-visible");
+
   }
 
   function hideModal() {
@@ -65,8 +76,8 @@ let pokemonRepository = (function(){
   });
 
   //Here we select the button we want to open with a click and show the model we created
-  document.querySelector('.pokemon-list').addEventListener('click', () => {
-    showModal('name', 'height');
+  // document.querySelector('.pokemon-list').addEventListener('click', () => {
+  //   showModal('name', 'height');
   });
 //MODAL ENDS
 
@@ -86,7 +97,7 @@ function add(pokemon){
   document.write('not an object');
 }
 }
-
+//After the pokrmon gets pushed into pokemonList through the add function we make a function to get a return outside.
 function getAll(){
   return pokemonList;
 }
@@ -104,7 +115,8 @@ function addListItem(poki){
   })
 }
 
-
+//The LoadList() method will fetch data (name, url) from the API, then add each Pokémon in the fetched data to pokemonList
+// with the add function implemented earlier. It gives the data to the variable pokemon
 function loadList() {
   //fetch the apiUrl variable and then we convert it into a promise. The result is ging to be a response
   //we use .then to return a promise. This is the funtion for a promise
@@ -117,8 +129,9 @@ function loadList() {
       let pokemon = {
         name: item.name,
         detailsUrl: item.url
+
       };
-      //this goes to the function in the top
+      //this goes to the function above
       add(pokemon);
       console.log(pokemon);
     });
@@ -127,6 +140,8 @@ function loadList() {
   })
 }
 
+// use the detailsUrl property to load the detailed data for a given Pokémon. takes a Pokémon item as an argument:
+// This one gives image height and types. We want this to access details with a click.
 function loadDetails(item) {
   //details url is coming from the prevous function
    let url = item.detailsUrl;
@@ -139,18 +154,20 @@ function loadDetails(item) {
      item.imageUrl = details.sprites.front_default;
      item.height = details.height;
      item.types = details.types;
+     item.imageUrl = details.sprites.front_default;
+     item.types = details.types;
+    item.weight = details.weight;
    }).catch(function (e) {
      console.error(e);
    });
  }
 
- function showDetails(load) {
-  loadDetails(load).then(function () {
-    showModal();
-  });
+ // function is executed when a user clicks on a Pokémon
+ function showDetails(item) {
+  pokemonRepository.loadDetails(item).then(function () {
+  showModal(item);
+    });
 }
-
-
 
 return {
     getAll : getAll,
@@ -161,8 +178,6 @@ return {
     showDetails : showDetails
   };
 })();
-
-
 
 //Now we put the forEach list into the loading function.
 //I forgot how this works
