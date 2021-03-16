@@ -61,6 +61,7 @@ label {
 .modal pokemon-img {
   width: 250px;
  height: 250px;
+ align: center;
  margin: -30px 0 -10px 0;
 }
 

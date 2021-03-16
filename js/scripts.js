@@ -45,7 +45,8 @@ let pokemonRepository = (function(){
         createtype.classList.add('p');
         createtype.innerHTML = "Type: " + pokemon.types;
 
-    modal.appendChild(closeButtonElement);
+    modal.appendChild(createname);
+    modal.appendChild(createimg);
     modal.appendChild(createname);
     modal.appendChild(createheight);
     modal.appendChild(createweight);
