@@ -42,6 +42,7 @@ label {
 
 .modal-close {
   float: right;
+  text-align: top;
   border: 1px;
   background: #f07c00;
   color: #fff;
@@ -61,7 +62,7 @@ label {
 .modal pokemon-img {
   width: 250px;
  height: 250px;
- align: center;
+ align: right;
  margin: -30px 0 -10px 0;
 }
 

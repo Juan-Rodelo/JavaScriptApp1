@@ -10,7 +10,7 @@ let pokemonRepository = (function(){
   function showModal (pokemon){
     //we create a div to add our css class modal that difines the div
     let modal = document.createElement("div");
-    modal.classList.add("modal");
+        modal.classList.add("modal");
     //Add the visible css display
     modalContainer.classList.add("is-visible");
     //we erase any possible html (??don't understant why this is needed)
@@ -45,9 +45,9 @@ let pokemonRepository = (function(){
         createtype.classList.add('p');
         createtype.innerHTML = "Type: " + pokemon.types;
 
+    modal.appendChild(closeButtonElement);
     modal.appendChild(createname);
     modal.appendChild(createimg);
-    modal.appendChild(createname);
     modal.appendChild(createheight);
     modal.appendChild(createweight);
     modal.appendChild(createtype);
@@ -148,7 +148,7 @@ function loadList() {
 function loadDetails(item) {
   //detailsUrl is coming from the prevous function
    let url = item.detailsUrl;
-   //You are asking to take the url as a promise with then this runs a function, and turn it into a json,
+   //You are asking to take the url as a promise with .then this runs a function, and turn it into a json,
    //you take this json and turn it also into a promise
    return fetch(url).then(function (response) {
      return response.json();
@@ -157,7 +157,12 @@ function loadDetails(item) {
      // those details come from the URL file
      item.imageUrl = details.sprites.front_default;
      item.height = details.height;
-     item.types = details.types;
+     item.types = details.type;
+     item.types = [];
+     details.types.forEach(function (itemTypes) {
+       item.types.push(itemTypes.type.name);
+     });
+
      item.weight = details.weight;
    }).catch(function (e) {
      console.error(e);
