@@ -2,86 +2,8 @@
 
 let pokemonRepository = (function(){
 
-  //MODAL
+  //MODAL FOR BOOTSTRAP
 
-  //select modal div with css clase to display none
-  let modalContainer = document.querySelector('#modal-container');
-  //create a function to display the modalContainer
-  function showModal (pokemon){
-    //we create a div to add our css class modal that difines the div
-    let modal = document.createElement("div");
-        modal.classList.add("modal");
-    //Add the visible css display
-    modalContainer.classList.add("is-visible");
-    //we erase any possible html (??don't understant why this is needed)
-    modalContainer.innerHTML = '';
-
-
-    //Create a close botton that we will add later to our modal div
-    let closeButtonElement = document.createElement("button");
-        closeButtonElement.classList.add("modal-close");
-        closeButtonElement.innerText = "Close";
-        closeButtonElement.addEventListener('click', hideModal);
-
-    let createname = document.createElement('h1');
-        createname.classList.add('h1');
-        createname.innerHTML = pokemon.name;
-
-    let createimg = document.createElement('img');
-        createimg.classList.add('pokemon-img');
-        createimg.src = pokemon.imageUrl;
-        //.alt returns the alternate text of an image
-        createimg.alt = "Image of " + pokemon.name
-
-    let createheight = document.createElement('p');
-        createheight.classList.add('p');
-        createheight.innerHTML = "Height: " + pokemon.height*10 + "cm";
-
-    let createweight = document.createElement('p');
-        createweight.classList.add('p');
-        createweight.innerHTML = "Weight: " + pokemon.weight + "lbs";
-
-    let createtype = document.createElement('p');
-        createtype.classList.add('p');
-        createtype.innerHTML = "Type: " + pokemon.types;
-
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(createname);
-    modal.appendChild(createimg);
-    modal.appendChild(createheight);
-    modal.appendChild(createweight);
-    modal.appendChild(createtype);
-    modalContainer.appendChild(modal);
-
-
-  }
-
-  function hideModal() {
-    modalContainer.classList.remove('is-visible');
-  }
-
-  //Enable escape keyboard. The window object represents the browser's window
-  window.addEventListener("keydown",(e) => {
-    //keyboard lets you get keyboard imput
-    //The contains() method returns a Boolean value indicating whether a node is a descendant of a specified node.
-    if (e.key === 'Escape' && modalContainer.classList.contains("is-visible")){
-      hideModal();
-    }
-  });
-
-  //Add click outside the modalContainer
-  modalContainer.addEventListener("click",(e)=> {
-    //we want to specify that it opens only on modalContainer,
-    let target = e.target;
-    if (target === modalContainer) {
-      hideModal();
-    }
-  });
-
-  //Here we select the button we want to open with a click and show the model we created
-  // document.querySelector('.pokemon-list').addEventListener('click', () => {
-  //   showModal('name', 'height');
-//MODAL ENDS
 
 
 
@@ -89,12 +11,12 @@ let pokemonList = [];
 
 let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-function add(pokemon){
+function add(poke){
   if (
-    typeof pokemon === 'object' &&
-    "detailsUrl" in pokemon
+    typeof poke === 'object' &&
+    "detailsUrl" in poke
   ){
-  pokemonList.push(pokemon);
+  pokemonList.push(poke);
 } else {
   document.write('not an object');
 }
@@ -104,19 +26,51 @@ function getAll(){
   return pokemonList;
 }
 
-//Create the button  for the list
-function addListItem(poki){
-  let pList = document.querySelector(".pokemon-list");
-  let listPokemon = document.createElement("li"); // creates the li element
-  let button = document.createElement("button"); //Creates the Button element in the document
-  button.innerText=poki.name; //Puts the text inside the button
-  button.classList.add("button-class") //adds the css "button-class" to the button var we just made. ClassList represents the class of and element.
-  listPokemon.appendChild(button); //We put the element we just made into the <li> "listPokemon"
-  pList.appendChild(listPokemon); // We put the Li into the class ".pokemon-list of the parent <ul>"
-  button.addEventListener("click", function (event){
-    showDetails(poki);
-  })
+//MODAL
+function showModal (item){
+  let modalTitle = $("modal-title");
+  let modalHeader = $("modal-header");
+  let modalBody = $("modal-body");
+
+  modalTitle.empty();
+  modalBody.empty();
+
+  let name = $("<h1> + name.item + </h1>");
+  let imageFront = $('<img class = "modal-img" style="width:50%">');
+  imageFront.attr("src", item.imageUrl);
+  let height = $("<p>" + "height:" + item.height + "</p>");
+  let weight = $("<p>" + "weight:" + item.weight + "</p>");
+  let types =  $("<p>" + "type:" + item.types + "</p>");
+  let url = $("<p>" + "Url:" + item.imageUrl + "</p>");
+
+  modalTitle.append(name);
+  modalBody.append(imageFront);
+  modalBody.append(height);
+  modalBody.append(weight);
+  modalBody.append(types);
+  modalBody.append(url);
 }
+
+//POKEMON LIST BUTTONS
+function addListItem(poki){
+
+  let pList = $(".list-group");
+  let listPokemon = $("<li class='list-group-item'> </li>"); // creates the li element
+  // listPokemon.addClass(".list-group-item");
+  let pokeButton = $('<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"></button>'); //Creates the Button element in the document
+  pokeButton.append(document.createTextNode(poki.name));
+  // button.innerText=poki.name; //Puts the text inside the button
+  // button.addClass(".btn btn-outline-danger"); //adds the bootstrap list-group-item class
+  listPokemon.append(pokeButton); //We put the element we just made into the <li> "listPokemon"
+  pList.append(listPokemon); // We put the Li into the class ".pokemon-list of the parent <ul>"
+  // button.addEventListener("click", function (event){
+  //   showDetails(poki);
+  // })
+  pokeButton.on("click", function (event) {
+   showDetails(poki);
+ });
+
+ }
 
 //The LoadList() method will fetch data (name, url) from the API, then add each Pokémon in the fetched data to pokemonList
 // with the add function implemented earlier. It gives the data to the variable pokemon
@@ -128,6 +82,7 @@ function loadList() {
       return response.json();
   }).then(function (json) {
     //the results comes from te URL page.
+    // The json is the whole key, cointains the whole url.
     json.results.forEach(function (item) {
       let pokemon = {
         name: item.name,
@@ -157,7 +112,6 @@ function loadDetails(item) {
      // those details come from the URL file
      item.imageUrl = details.sprites.front_default;
      item.height = details.height;
-     item.types = details.type;
      item.types = [];
      details.types.forEach(function (itemTypes) {
        item.types.push(itemTypes.type.name);
@@ -182,16 +136,15 @@ return {
     addListItem : addListItem,
     loadList: loadList,
     loadDetails : loadDetails,
-    showDetails : showDetails
+    // showDetails : showDetails,
+    showModal: showModal
   };
 })();
 
 //Now we put the forEach list into the loading function.
 //I forgot how this works
-// The load list as a promise gets put into the getall(the repository), forEach getAll we add the botton in the addListItem
 pokemonRepository.loadList().then(function() {
-pokemonRepository.getAll().forEach(function(poki) {
-  pokemonRepository.addListItem(poki);
-
+pokemonRepository.getAll().forEach(function(lulu) {
+  pokemonRepository.addListItem(lulu);
   });
 });
