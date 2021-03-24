@@ -56,7 +56,6 @@ function addListItem(poki){
 
   let pList = $(".list-group");
   let listPokemon = $("<li class='list-group-item'> </li>"); // creates the li element
-  // listPokemon.addClass(".list-group-item");
   let pokeButton = $('<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"></button>'); //Creates the Button element in the document
   pokeButton.append(document.createTextNode(poki.name));
   // button.innerText=poki.name; //Puts the text inside the button
