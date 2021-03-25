@@ -28,43 +28,51 @@ function getAll(){
 
 //MODAL
 function showModal (item){
-  let modalTitle = $("modal-title");
-  let modalHeader = $("modal-header");
-  let modalBody = $("modal-body");
+  let modalTitle = $(".modal-title");
+  let modalHeader = $(".modal-header");
+  let modalBody = $(".modal-body");
 
   modalTitle.empty();
   modalBody.empty();
 
-  let name = $("<h1> + name.item + </h1>");
+  let nameElement = $("<h1>" + item.name + "</h1>");
   let imageFront = $('<img class = "modal-img" style="width:50%">');
   imageFront.attr("src", item.imageUrl);
-  let height = $("<p>" + "height:" + item.height + "</p>");
-  let weight = $("<p>" + "weight:" + item.weight + "</p>");
-  let types =  $("<p>" + "type:" + item.types + "</p>");
-  let url = $("<p>" + "Url:" + item.imageUrl + "</p>");
+  let heightElement = $("<p>" + "height:" + item.height + "</p>");
+  let weightElement = $("<p>" + "weight:" + item.weight + "</p>");
+  let typesElement =  $("<p>" + "type:" + item.types + "</p>");
 
-  modalTitle.append(name);
+
+  modalTitle.append(nameElement);
   modalBody.append(imageFront);
-  modalBody.append(height);
-  modalBody.append(weight);
-  modalBody.append(types);
-  modalBody.append(url);
+  modalBody.append(heightElement);
+  modalBody.append(weightElement);
+  modalBody.append(typesElement);
+
 }
 
 //POKEMON LIST BUTTONS
 function addListItem(poki){
+  let pList = $(".row");
+  let card = $('<div class="card" style="width: 18rem; margin:13px;"></div>'); // creates the li element
+  let imageCard = $('<img class="card-img-top mx-auto" style="width:30%;" alt="...">');
+  imageCard.attr("src", poki.imageUrl);
+  let body = $('<div class="card-body" style="text-align: center;"></div>');
 
-  let pList = $(".list-group");
-  let listPokemon = $("<li class='list-group-item'> </li>"); // creates the li element
-  let pokeButton = $('<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"></button>'); //Creates the Button element in the document
+  let pokeButton = $('<button type="button " class="btn btn-warning " data-toggle="modal" data-target="#exampleModal"></button>'); //Creates the Button element in the document
   pokeButton.append(document.createTextNode(poki.name));
-  // button.innerText=poki.name; //Puts the text inside the button
-  // button.addClass(".btn btn-outline-danger"); //adds the bootstrap list-group-item class
-  listPokemon.append(pokeButton); //We put the element we just made into the <li> "listPokemon"
-  pList.append(listPokemon); // We put the Li into the class ".pokemon-list of the parent <ul>"
-  // button.addEventListener("click", function (event){
-  //   showDetails(poki);
-  // })
+
+// // bg-primary
+// let bodyColor = $(".card-body").css("color", "red");
+// body.css("color", "green");
+// pokeButton.addClass("<style='background-color: #d88780;'>")
+
+  pList.append(card);
+  card.append(imageCard);
+  card.append(body);
+  body.append(pokeButton);
+
+
   pokeButton.on("click", function (event) {
    showDetails(poki);
  });
@@ -115,8 +123,74 @@ function loadDetails(item) {
      details.types.forEach(function (itemTypes) {
        item.types.push(itemTypes.type.name);
      });
-
      item.weight = details.weight;
+     // if (item.types.includes("grass")) {
+     //   let green = css("color", "green");
+     //        pokeButton.append(green);
+     //      }
+     // if (item.types.includes("grass")) {
+     //        $(".card-body").css("color", "green");
+     //      }
+          // $listItem.css("color", "lightgreen");
+          // $(this).css('color', 'red');
+        // } else if (item.types.includes("fire")) {
+        //   pokeButton.css("color", "red");
+        // } else if (item.types.includes("psychic")) {
+        //   pokeButton.css("color", "#FF69B4");
+        // } else if (item.types.includes("poison")) {
+        //   pokeButton.css("color", "purple");
+        // } else if (item.types.includes("water")) {
+        //   pokeButton.css("color", "blue");
+        // } else if (item.types.includes("bug")) {
+        //   pokeButton.css("color", "#3f000f");
+        // } else if (item.types.includes("rock")) {
+        //   pokeButton.css("color", "#BC8F8F");
+        // } else if (item.types.includes("flying")) {
+        //   pokeButton.css("color", "#2F4F4F");
+        // } else if (item.types.includes("electric")) {
+        //   pokeButton.css("color", "gold");
+        // } else if (item.types.includes("ice")) {
+        //   pokeButton.css("color", "#4169E1");
+        // } else if (item.types.includes("ghost")) {
+        //   pokeButton.css("color", "#8B008B");
+        // } else if (item.types.includes("ground")) {
+        //   pokeButton.css("color", "#D2B48C");
+        // } else if (item.types.includes("fairy")) {
+        //   pokeButton.css("color", "#EE82EE");
+        // } else if (item.types.includes("steel")) {
+        //   pokeButton.css("color", "#708090");
+        // }
+     if (item.types.includes("grass")) {
+               $(".modal-header").css("color", "green");
+               // $listItem.css("color", "lightgreen");
+               // $(this).css('color', 'red');
+             } else if (item.types.includes("fire")) {
+               $(".modal-header").css("color", "red");
+             } else if (item.types.includes("psychic")) {
+               $(".modal-header").css("color", "#FF69B4");
+             } else if (item.types.includes("poison")) {
+               $(".modal-header").css("color", "purple");
+             } else if (item.types.includes("water")) {
+               $(".modal-header").css("color", "blue");
+             } else if (item.types.includes("bug")) {
+               $(".modal-header").css("color", "#3f000f");
+             } else if (item.types.includes("rock")) {
+               $(".modal-header").css("color", "#BC8F8F");
+             } else if (item.types.includes("flying")) {
+               $(".modal-header").css("color", "#2F4F4F");
+             } else if (item.types.includes("electric")) {
+               $(".modal-header").css("color", "gold");
+             } else if (item.types.includes("ice")) {
+               $(".modal-header").css("color", "#4169E1");
+             } else if (item.types.includes("ghost")) {
+               $(".modal-header").css("color", "#8B008B");
+             } else if (item.types.includes("ground")) {
+               $(".modal-header").css("color", "#D2B48C");
+             } else if (item.types.includes("fairy")) {
+               $(".modal-header").css("color", "#EE82EE");
+             } else if (item.types.includes("steel")) {
+               $(".modal-header").css("color", "#708090");
+             }
    }).catch(function (e) {
      console.error(e);
    });
@@ -135,7 +209,7 @@ return {
     addListItem : addListItem,
     loadList: loadList,
     loadDetails : loadDetails,
-    // showDetails : showDetails,
+    showDetails : showDetails,
     showModal: showModal
   };
 })();

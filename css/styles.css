@@ -5,39 +5,3 @@ html,
 body {
   font-family: Arial, sans-serif;
 }
-
-.input-wrapper {
-  margin-bottom: 10px;
-}
-
-label {
-  display: inline-block;
-  min-width: 75px;
-}
-
-.error-message {
-  color: red;
-  font-size: 0.8em;
-}
-
-/* Modal */
-
-
-.modal {
-  margin: auto;
-  display: inline-block;
-  box-sizing: border-box;
-  background: #fff;
-  padding: 15px;
-  width: 100%;
-  max-width: 700px;
-  text-align: left;
-}
-
-
-
-.modal pokemon-img {
-  width: 250px;
- height: 250px;
- margin: -30px 0 -10px 0;
-}
