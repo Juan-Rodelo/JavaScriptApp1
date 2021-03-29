@@ -5,3 +5,63 @@ html,
 body {
   font-family: Arial, sans-serif;
 }
+
+.buttonGreen{
+  background-color: green;
+}
+
+.buttonBlack {
+  background-color: #000000;
+}
+
+.buttonFire{
+  background-color: red;
+}
+
+.buttonPsychic {
+  background-color: #FF69B4;
+}
+
+.buttonPoison {
+  background-color: purple;
+}
+
+.buttonWater {
+  background-color: blue;
+}
+
+.buttonBug {
+  background-color: #3f000f;
+}
+
+.buttonRock {
+  background-color: #BC8F8F;
+}
+
+.buttonFlying {
+  background-color: #2F4F4F;
+}
+
+.buttonElectric {
+  background-color: gold;
+}
+
+.buttonIce {
+  background-color: #4169E1;
+}
+
+.buttonGhost {
+  background-color: #8B008B;
+}
+
+.buttonGround {
+  background-color: #D2B48C;
+}
+
+.buttonFairy {
+  background-color: #EE82EE;
+}
+
+.buttonSteel {
+  background-color: #708090;
+}
