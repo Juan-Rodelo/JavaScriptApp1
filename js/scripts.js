@@ -1,24 +1,23 @@
 
 
+
 let pokemonRepository = (function(){
 
   //MODAL FOR BOOTSTRAP
 
 
-
-
 let pokemonList = [];
 
-let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
 function add(poke){
   if (
-    typeof poke === 'object' &&
+    typeof poke === "object" &&
     "detailsUrl" in poke
   ){
   pokemonList.push(poke);
 } else {
-  document.write('not an object');
+  document.write("not an object");
 }
 }
 //After the pokrmon gets pushed into pokemonList through the add function we make a function to get a return outside.
@@ -29,14 +28,13 @@ function getAll(){
 //MODAL
 function showModal (item){
   let modalTitle = $(".modal-title");
-  let modalHeader = $(".modal-header");
   let modalBody = $(".modal-body");
 
   modalTitle.empty();
   modalBody.empty();
 
   let nameElement = $("<h1>" + item.name + "</h1>");
-  let imageFront = $('<img class = "modal-img" style="width:50%">');
+  let imageFront = $("<img class = 'modal-img' style='width:50%''>");
   imageFront.attr("src", item.imageUrl);
   let heightElement = $("<p>" + "height:" + item.height + "</p>");
   let weightElement = $("<p>" + "weight:" + item.weight + "</p>");
@@ -56,12 +54,12 @@ function addListItem(item){
   pokemonRepository.loadDetails(item).then(function () {
 
   let pList = $(".row");
-  let card = $('<div class="card" style="width: 18rem; margin:13px;"></div>'); // creates the li element
-  let imageCard = $('<img class="card-img-top mx-auto" style="width:30%;" alt="...">');
+  let card = $("<div class='card' style='width: 18rem; margin:13px;'></div>"); // creates the li element
+  let imageCard = $("<img class='card-img-top mx-auto' style='width:30%;'' alt='...'>");
   imageCard.attr("src", item.imageUrl);
-  let body = $('<div class="card-body" style="text-align: center;"></div>');
+  let body = $("<div class='card-body' style='text-align: center;''></div>");
 
-  let pokeButton = $('<button type="button " class="btn colorButton" style= "width:50%;" data-toggle="modal" data-target="#exampleModal"></button>'); //Creates the Button element in the document
+  let pokeButton = $("<button type='button' class='btn colorButton' style= 'width:50%;'' data-toggle='modal' data-target='#exampleModal'></button>"); //Creates the Button element in the document
   pokeButton.append(document.createTextNode(item.name));
 
 $(".btn").css("color", "White");
